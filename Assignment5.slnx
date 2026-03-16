@@ -1,0 +1,4 @@
+﻿<Solution>
+  <Project Path="NodeCanvas.csproj" />
+  <Project Path="ParadoxNotion.csproj" />
+</Solution>
