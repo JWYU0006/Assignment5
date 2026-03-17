@@ -39,7 +39,7 @@ namespace NodeCanvas.Tasks.Actions
         {
             for (int i = 0; i < 5; i++)
             {
-                player01CardsNumberBBP.value[i] = Random.Range(1, 11);
+                player01CardsNumberBBP.value[i] = Random.Range(1, 10);
             }
             Debug.Log("dealing");
         }
