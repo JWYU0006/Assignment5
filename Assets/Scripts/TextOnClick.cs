@@ -1,11 +1,13 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TextOnClick : MonoBehaviour
 {
     public Material selected;
     public Material unselected;
-    private bool selectedState;
+    public bool selectedState;
+    public int publicIndex;
 
     private void Start()
     {
