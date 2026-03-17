@@ -8,49 +8,54 @@ namespace NodeCanvas.Tasks.Actions
 {
     public class AT_DealingCards : ActionTask
     {
-        public BBParameter<GameObject> player01;
-        public BBParameter<GameObject> player02;
-        public BBParameter<GameObject> player03;
-        public BBParameter<List<int>> player01Cards;
+        public BBParameter<bool> dealingPhaseBBP;
+        public BBParameter<GameObject> player01BBP;
+        public BBParameter<GameObject> player02BBP;
+        public BBParameter<GameObject> player03BBP;
+        public BBParameter<List<int>> player01CardsNumberBBP;
+        private TMP_Text[] player01CardsText;
 
         protected override string OnInit()
         {
-            return null;
-        }
-
-        //This is called once each time the task is enabled.
-        //Call EndAction() to mark the action as finished, either in success or failure.
-        //EndAction can be called from anywhere.
-        protected override void OnExecute()
-        {
-            var tempText = player01.value.GetComponentsInChildren<TMP_Text>();
-            foreach (var t in tempText)
+            player01CardsText = player01BBP.value.GetComponentsInChildren<TMP_Text>();
+            foreach (var t in player01CardsText)
             {
-                player01Cards.value.Add(int.Parse(t.text));
+                player01CardsNumberBBP.value.Add(int.Parse(t.text));
             }
-            foreach (int c in player01Cards.value)
+            if (dealingPhaseBBP.value == true)
+            {
+                Dealing();
+                UpdateText();
+            }
+            foreach (int c in player01CardsNumberBBP.value)
             {
                 Debug.Log(c);
             }
+
+            return null;
+        }
+
+        private void Dealing()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                player01CardsNumberBBP.value[i] = Random.Range(1, 11);
+            }
+            Debug.Log("dealing");
+        }
+
+        private void UpdateText()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                player01CardsText[i].text = player01CardsNumberBBP.value[i].ToString();
+            }
+        }
+
+        protected override void OnExecute()
+        {
+            if (dealingPhaseBBP.value == true) dealingPhaseBBP.value = false;
             EndAction(true);
-        }
-
-        //Called once per frame while the action is active.
-        protected override void OnUpdate()
-        {
-
-        }
-
-        //Called when the task is disabled.
-        protected override void OnStop()
-        {
-
-        }
-
-        //Called when the task is paused.
-        protected override void OnPause()
-        {
-
         }
     }
 }
