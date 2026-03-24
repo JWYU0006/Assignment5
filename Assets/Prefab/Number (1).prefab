@@ -211,10 +211,7 @@ MonoBehaviour:
   selected: {fileID: 2100000, guid: 738065d99a5b200419e76567ebcdd4cc, type: 2}
   unselected: {fileID: 2100000, guid: 5ca9d5a48c9871944a5ab8b9730af52b, type: 2}
   selectedState: 0
-  execOnClick:
-    m_PersistentCalls:
-      m_Calls: []
-  redrawButton: {fileID: 0}
+  publicIndex: 0
 --- !u!1 &6453029387920312153
 GameObject:
   m_ObjectHideFlags: 0

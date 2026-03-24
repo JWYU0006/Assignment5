@@ -1,13 +1,13 @@
+using NodeCanvas.Framework;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class TextOnClick : MonoBehaviour
 {
     public Material selected;
     public Material unselected;
     public bool selectedState;
-    public int publicIndex;
+    public Blackboard croupier;
 
     private void Start()
     {
@@ -24,6 +24,7 @@ public class TextOnClick : MonoBehaviour
             this.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = unselected;
             selectedState = false;
             Debug.Log(this.name + "unselected!");
+            croupier.SetVariableValue("redrawIndex", -1);
         }
         else
         {
@@ -31,6 +32,7 @@ public class TextOnClick : MonoBehaviour
             this.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = selected;
             selectedState = true;
             Debug.Log(this.name + "selected!");
+            croupier.SetVariableValue("redrawIndex", int.Parse(this.name));
         }
     }
 }
