@@ -36,10 +36,12 @@ namespace NodeCanvas.Tasks.Actions
                 Dealing();
                 UpdateText();
             }
+            Debug.Log("Player's cards");
             foreach (int c in player01CardsNumberBBP.value)
             {
                 Debug.Log(c);
             }
+            Debug.Log("AI's cards");
             foreach (int c in player02CardsNumberBBP.value)
             {
                 Debug.Log(c);
@@ -59,7 +61,7 @@ namespace NodeCanvas.Tasks.Actions
             Debug.Log("dealing");
         }
 
-        private void UpdateText()
+        public void UpdateText()
         {
             // Update the text of each card for both players based on the current values in `player01CardsNumberBBP` and `player02CardsNumberBBP`.
             for (int i = 0; i < 5; i++)
