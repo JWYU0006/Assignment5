@@ -12,6 +12,6 @@ public class RedrawButtonOnClick : MonoBehaviour
 
     public void OnClick()
     {
-        playerBB.SetVariableValue("redrawClicked, true", true);
+        playerBB.SetVariableValue("redrawClicked", true);
     }
 }
