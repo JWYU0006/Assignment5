@@ -1,4 +1,6 @@
 using NodeCanvas.Framework;
+using System.Collections;
+using TMPro;
 using UnityEngine;
 
 
@@ -10,6 +12,9 @@ namespace NodeCanvas.Tasks.Actions
         public BBParameter<Transform> card1Position;
         public BBParameter<int> redrawIndex;
         public GameObject prefab;
+        public Transform canvas;
+        private GameObject spawnedCard;
+        private Vector3 chosenCardPosition;
 
         //Use for initialization. This is called only once in the lifetime of the task.
         //Return null if init was successfull. Return an error string otherwise
@@ -25,10 +30,23 @@ namespace NodeCanvas.Tasks.Actions
         {
             var temp = card1Position.value.position;
             temp.x = temp.x + 0.5f * (redrawIndex.value - 1);
-            temp.y = temp.y - 0.8f;
-            Debug.Log("Spawning new card at position: " + temp);
-            GameObject.Instantiate(prefab, temp, Quaternion.identity);
+            chosenCardPosition = temp;
+            temp.y = temp.y + 5;
+            card1Position.value.position = temp;
+            Debug.Log("Spawning new card at position: " + card1Position.value.position);
+            spawnedCard = GameObject.Instantiate(prefab, temp, Quaternion.identity);
+            spawnedCard.transform.SetParent(canvas);
+            StartCoroutine(SpawnAnimation(spawnedCard));
             EndAction(true);
+        }
+
+        private IEnumerator SpawnAnimation(GameObject spawnedCard)
+        {
+            while (Vector3.Distance(spawnedCard.transform.position, chosenCardPosition) != 0)
+            {
+                spawnedCard.transform.position = Vector3.Lerp(spawnedCard.transform.position, chosenCardPosition, Time.deltaTime * 5);
+                yield return null;
+            }
         }
 
         //Called once per frame while the action is active.
